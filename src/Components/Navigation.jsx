@@ -1,13 +1,25 @@
 import { useContext } from "react";
 import logo from "../img/Design.png";
 import { MyContext } from "../Context/MyContext";
-import { FaBars } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { FaBars, FaRegUserCircle, FaUser } from "react-icons/fa";
+import { NavLink, useNavigate } from "react-router-dom";
+import { auth } from "../firebase-config";
+// import { useAuthState } from "react-firebase-hooks/auth";
+import { signOut } from "firebase/auth";
+import { toast } from "react-toastify";
 
 // (logo) https://th.bing.com/th/id/OIG1.AuCGNtK.2Yssa.1kcFOd?w=1024&h=1024&rs=1&pid=ImgDetMain
 
-const Navigation = ({ sidebar, setSidebar }) => {
+const Navigation = ({ sidebar, setSidebar, user }) => {
   const { isMobile } = useContext(MyContext);
+  // const [user] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut(auth);
+    navigate("/auth");
+    toast.success("Logout Successfully");
+  };
 
   return (
     <div className="">
@@ -24,27 +36,52 @@ const Navigation = ({ sidebar, setSidebar }) => {
             <></>
           )}
         </div>
-        <div className="lg:flex lg:flex-row flex flex-col font-semibold lg:gap-[4rem]">
-          <div className="hover:bg-[#0facce] hover:text-white p-2.5 rounded-lg transition ease-in-out duration-150 text-center w-full">
+        <div className="lg:flex-row flex flex-col items-center font-semibold lg:gap-[4rem]">
+          <NavLink
+            to="/"
+            className="hover:bg-[#0facce] hover:text-white p-2.5 rounded-sm transition ease-in-out duration-150 text-center w-full"
+          >
             <button className="">Home</button>
-          </div>
-          <div className="hover:bg-[#0facce] hover:text-white p-2.5 rounded-lg transition ease-in-out duration-150 text-center w-full">
+          </NavLink>
+          <div className="hover:bg-[#0facce] hover:text-white p-2.5 rounded-sm transition ease-in-out duration-150 text-center w-full">
             <button className="">Blogs</button>
           </div>
-          <div className="hover:bg-[#0facce] hover:text-white p-2.5 rounded-lg transition ease-in-out duration-150 text-center w-full">
+          <NavLink
+            to="/create"
+            className="hover:bg-[#0facce] hover:text-white p-2.5 rounded-sm transition ease-in-out duration-150 text-center w-full"
+          >
             <button className="">Create</button>
-          </div>
-          <div className="hover:bg-[#0facce] hover:text-white p-2.5 rounded-lg transition ease-in-out duration-150 text-center w-full">
+          </NavLink>
+          <div className="hover:bg-[#0facce] hover:text-white p-2.5 rounded-sm transition ease-in-out duration-150 text-center w-full">
             <button className="">About</button>
           </div>
         </div>
 
-        <NavLink
-          to="/auth"
-          className="justify-center lg:m-0 m-auto flex font-semibold hover:bg-[#0facce] hover:text-white p-2.5 rounded-lg transition ease-in-out duration-150"
-        >
-          Login
-        </NavLink>
+        {user ? (
+          <>
+            <div className="lg:flex gap-3">
+              <div className="flex items-center gap-1 justify-center w-full p-2.5">
+                <FaRegUserCircle />
+                <h1 className="">{user?.displayName}</h1>
+              </div>
+              <button
+                className="lg:m-0 m-auto flex font-semibold hover:bg-[#0facce] hover:text-white p-2.5 rounded-sm transition ease-in-out duration-150"
+                onClick={handleSignOut}
+              >
+                Logout
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <NavLink
+              to="/auth"
+              className="justify-center lg:m-0 m-auto flex font-semibold hover:bg-[#0facce] hover:text-white p-2.5 rounded-sm transition ease-in-out duration-150"
+            >
+              Login
+            </NavLink>
+          </>
+        )}
       </div>
     </div>
   );
