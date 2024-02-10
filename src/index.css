@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* In your stylesheet */
 
 @layer base {
   body {
@@ -55,5 +56,13 @@ code {
   .content {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
+  }
+
+  .react-tag-input {
+    height: 25px;
+  }
+
+  .react-tag-input:focus {
+    border-color: yellow;
   }
 }
