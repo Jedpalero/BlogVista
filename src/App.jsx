@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateBlog from "./Pages/CreateBlog";
 import { auth } from "./firebase-config";
+import Details from "./Pages/Details";
 
 function App() {
   const [sidebar, setSidebar] = useState(false);
@@ -32,12 +33,12 @@ function App() {
           sidebar && isMobile ? "grid-rows-[340px_1fr]" : "grid-rows-[70px_1fr]"
         }`}
       >
-        <div className="header bg-[#f7f7f7]">
+        <div className="header bg-[#f7f7f7] ">
           <Navigation sidebar={sidebar} setSidebar={setSidebar} user={user} />
         </div>
         <main className="content bg-white">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home user={user} />} />
             <Route path="/auth" element={<Auth />} />
             <Route
               path="/create"
@@ -45,6 +46,13 @@ function App() {
                 user?.uid ? <CreateBlog user={user} /> : <Navigate to="/" />
               }
             />
+            <Route
+              path="/update/:id"
+              element={
+                user?.uid ? <CreateBlog user={user} /> : <Navigate to="/" />
+              }
+            />
+            <Route path="/detail/:id" element={<Details user={user} />} />
           </Routes>
         </main>
       </div>
