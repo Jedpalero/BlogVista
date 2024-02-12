@@ -65,4 +65,8 @@ code {
   .react-tag-input:focus {
     border-color: yellow;
   }
+
+  .overlay {
+    background: rgba(0, 0, 0, 0.3);
+  }
 }

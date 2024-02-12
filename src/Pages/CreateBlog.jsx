@@ -3,8 +3,16 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { db, storage } from "../firebase-config";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { useNavigate } from "react-router";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
+import { useNavigate, useParams } from "react-router";
+import { toast } from "react-toastify";
 
 const initialState = {
   title: "",
@@ -19,6 +27,7 @@ const CreateBlog = ({ user }) => {
   const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(null);
   const navigate = useNavigate();
+  const { id } = useParams();
 
   useEffect(() => {
     const uploadFile = () => {
@@ -48,6 +57,7 @@ const CreateBlog = ({ user }) => {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
+            toast.info("Image uploaded to firebase successfully");
             setForm((prev) => ({ ...prev, imgUrl: downloadUrl }));
           });
         }
@@ -56,6 +66,18 @@ const CreateBlog = ({ user }) => {
 
     file && uploadFile();
   }, [file]);
+
+  useEffect(() => {
+    id && getBlogDetail();
+  }, [id]);
+
+  const getBlogDetail = async () => {
+    const docRef = doc(db, "blogs", id);
+    const snapshot = await getDoc(docRef);
+    if (snapshot.exists()) {
+      setForm({ ...snapshot.data() });
+    }
+  };
 
   const { title, tags, trending, category, description } = form;
 
@@ -79,17 +101,34 @@ const CreateBlog = ({ user }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (category && tags && title && file && description && trending) {
-      try {
-        await addDoc(collection(db, "blogs"), {
-          ...form,
-          timestamp: serverTimestamp(),
-          author: user?.displayName,
-          userId: user?.uid,
-        });
-      } catch (error) {
-        console.log(error);
+    if (category && tags && title && description && trending) {
+      if (!id) {
+        try {
+          await addDoc(collection(db, "blogs"), {
+            ...form,
+            timestamp: serverTimestamp(),
+            author: user?.displayName,
+            userId: user?.uid,
+          });
+          toast.success("Blog created successfully");
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        try {
+          await updateDoc(doc(db, "blogs", id), {
+            ...form,
+            timestamp: serverTimestamp(),
+            author: user?.displayName,
+            userId: user?.uid,
+          });
+          toast.success("Blog updated successfully");
+        } catch (error) {
+          console.log(error);
+        }
       }
+    } else {
+      return toast.error("All fields are mandatory to fill");
     }
     navigate("/");
   };
@@ -102,7 +141,9 @@ const CreateBlog = ({ user }) => {
           onSubmit={handleSubmit}
         >
           <div className="w-full space-y-5">
-            <h1 className="font-bold">Create a Post</h1>
+            <h1 className="font-bold">
+              {id ? "Update a Post" : "Create a Post"}
+            </h1>
             <div className="flex gap-1">
               <input
                 type="text"
@@ -165,7 +206,7 @@ const CreateBlog = ({ user }) => {
 
           <div className="flex lg:flex-col gap-2">
             <div className=" border p-3 space-y-3">
-              <h1 className="font-bold">Publish</h1>
+              <h1 className="font-bold">{id ? "Update" : "Publish"}</h1>
               <div className="flex flex-col gap-3">
                 <input
                   type="file"
@@ -177,7 +218,7 @@ const CreateBlog = ({ user }) => {
                   className="border p-2 w-[5rem] bg-[#0facce] disabled:bg-[#acd9e0] rounded-lg text-white"
                   disabled={progress !== null && progress < 100}
                 >
-                  Publish
+                  {id ? "Update" : "Publish"}
                 </button>
               </div>
             </div>

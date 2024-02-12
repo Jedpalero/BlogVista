@@ -24,9 +24,9 @@ const Details = () => {
         className="bg-cover bg-no-repeat bg-center h-[700px] relative flex justify-center text-center"
         style={{ backgroundImage: `url('${blog?.imgUrl}')` }}
       >
-        {/* <div className="absolute top-0 bottom-0 left-0 right-0 z-10"></div> */}
-        <div className="bottom-0 absolute text-white p-5">
-          <span className="text-gray-400 text-2xl">
+        <div className="absolute top-0 bottom-0 left-0 right-0 z-1 overlay"></div>
+        <div className="bottom-0 absolute text-white p-5 z-10">
+          <span className="text-gray-400 text-2xl ">
             {blog?.timestamp.toDate().toDateString()}
           </span>
           <h2 className="text-[4rem] font-bold mt-3">{blog?.title}</h2>
