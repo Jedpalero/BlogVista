@@ -1,5 +1,7 @@
 import {
   collection,
+  deleteDoc,
+  doc,
   getDocs,
   onSnapshot,
   query,
@@ -10,6 +12,8 @@ import { db } from "../firebase-config";
 import BlogSection from "../Components/BlogSection";
 // import Trending from "../Components/Trending";
 import Tags from "../Components/Tags";
+import Spinner from "../Components/Spinner";
+import { toast } from "react-toastify";
 
 const Home = ({ user }) => {
   const [loading, setLoading] = useState(true);
@@ -42,6 +46,7 @@ const Home = ({ user }) => {
         const uniqueTags = [...new Set(tags)];
         setBlogs(list);
         setTags(uniqueTags);
+        setLoading(false);
       },
       (error) => {
         console.log(error);
@@ -54,7 +59,23 @@ const Home = ({ user }) => {
     };
   }, []);
 
-  // console.log("blogs", blogs);
+  if (loading) {
+    return <Spinner />;
+  }
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you wanted to delete the blog ?")) {
+      try {
+        setLoading(true);
+        await deleteDoc(doc(db, "blogs", id));
+        toast.success("Blog deleted successfully");
+        // getBlogs();
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <div className="flex flex-col  items-center m-auto justify-center overflow-y-scroll h-screen pb-12">
@@ -65,7 +86,12 @@ const Home = ({ user }) => {
       <div>
         <p>Daily Blogs</p>
         {blogs?.map((blog) => (
-          <BlogSection key={blog.id} user={user} {...blog} />
+          <BlogSection
+            key={blog.id}
+            user={user}
+            {...blog}
+            handleDelete={handleDelete}
+          />
         ))}
       </div>
       <div>

@@ -16,9 +16,10 @@ const BlogSection = ({
   timestamp,
   handleDelete,
 }) => {
+  // const userId = user?.uid
   return (
     <div className="flex flex-col mb-3">
-      <div key={id} className="w-[47rem] border flex gap-5">
+      <div className="w-[47rem] border flex gap-5">
         <img src={imgUrl} alt={title} className=" object-fill w-[15rem]" />
         <div className="flex flex-col gap-2 m-auto p-2">
           <h1 className="bg-[#0facce] p-1 w-[100px] text-center rounded-sm font-bold text-white text-sm">
@@ -26,17 +27,27 @@ const BlogSection = ({
           </h1>
           <h1 className="font-semibold">{title}</h1>
           <span>
-            <b>{title}</b> - {timestamp.toDate().toDateString()}
+            <b>{author}</b> - {timestamp.toDate().toDateString()}
           </span>
           <p>{excerpt(description, 120)}</p>
           <div className="flex justify-between items-center">
-            <Link to={`/detail/${id}`} className="bg-[#17445b] p-1 text-white">
+            <Link
+              to={`/detail/${id}`}
+              className="bg-[#17445b] p-1 text-white transition duration-500 ease-in-out hover:scale-125"
+            >
               Read More
             </Link>
-            <div className="flex gap-4 mr-3">
-              <RiDeleteBin7Fill />
-              <FaEdit />
-            </div>
+            {user?.uid && userId === user.uid && (
+              <div className="flex gap-4 mr-3">
+                <RiDeleteBin7Fill
+                  onClick={() => handleDelete(id)}
+                  className="cursor-pointer hover:text-red-600"
+                />
+                <Link to={`/update/${id}`}>
+                  <FaEdit className="cursor-pointer hover:text-[#0facce]" />
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
