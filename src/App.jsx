@@ -9,6 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 import CreateBlog from "./Pages/CreateBlog";
 import { auth } from "./firebase-config";
 import Details from "./Pages/Details";
+import TagSection from "./Pages/TagSection";
+import ErrorNotFound from "./Components/ErrorNotFound";
 
 function App() {
   const [sidebar, setSidebar] = useState(false);
@@ -53,6 +55,9 @@ function App() {
               }
             />
             <Route path="/detail/:id" element={<Details user={user} />} />
+            <Route path="/tag/:tag" element={<TagSection />} />
+
+            <Route path="*" element={<ErrorNotFound />} />
           </Routes>
         </main>
       </div>

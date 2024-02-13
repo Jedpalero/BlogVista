@@ -19,8 +19,12 @@ const BlogSection = ({
   // const userId = user?.uid
   return (
     <div className="flex flex-col mb-3">
-      <div className="w-[47rem] border flex gap-5">
-        <img src={imgUrl} alt={title} className=" object-fill w-[15rem]" />
+      <div className="lg:w-[60rem] border lg:flex gap-5">
+        <img
+          src={imgUrl}
+          alt={title}
+          className=" object-cover lg:w-[50rem] w-full max-h-[20rem] overflow-hidden"
+        />
         <div className="flex flex-col gap-2 m-auto p-2">
           <h1 className="bg-[#0facce] p-1 w-[100px] text-center rounded-sm font-bold text-white text-sm">
             {category}

@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
+import { FaCircleNotch } from "react-icons/fa";
 
 const initialState = {
   title: "",
@@ -20,6 +21,8 @@ const initialState = {
   trending: "no",
   category: "Art",
   description: "",
+  comments: [],
+  likes: [],
 };
 
 const CreateBlog = ({ user }) => {
@@ -134,8 +137,8 @@ const CreateBlog = ({ user }) => {
   };
 
   return (
-    <div className="flex items-center justify-center gap-4 lg:mt-10 mt-2">
-      <div className="lg:w-[50rem] p-2">
+    <div className="flex items-center justify-center gap-4 lg:mt-12 mt-2 drop-shadow-lg">
+      <div className="lg:w-[60rem] p-2">
         <form
           className="lg:flex items-center justify-center gap-2"
           onSubmit={handleSubmit}
@@ -177,7 +180,9 @@ const CreateBlog = ({ user }) => {
                   onChange={handleTrending}
                   checked={trending === "yes"}
                 />
-                <label htmlFor="radioOption1">Yes</label>
+                <label htmlFor="radioOption1" className="cursor-pointer">
+                  Yes
+                </label>
                 <input
                   type="radio"
                   value="no"
@@ -187,7 +192,9 @@ const CreateBlog = ({ user }) => {
                   onChange={handleTrending}
                   checked={trending === "no"}
                 />
-                <label htmlFor="radioOption2">No</label>
+                <label htmlFor="radioOption2" className="cursor-pointer">
+                  No
+                </label>
               </div>
             </div>
 
@@ -205,24 +212,39 @@ const CreateBlog = ({ user }) => {
           </div>
 
           <div className="flex lg:flex-col gap-2">
-            <div className=" border p-3 space-y-3">
+            <div className=" border  p-3 space-y-3 drop-shadow-sm border-b-2 border-r-2">
               <h1 className="font-bold">{id ? "Update" : "Publish"}</h1>
               <div className="flex flex-col gap-3">
                 <input
                   type="file"
-                  className="border w-full"
+                  className="border w-full cursor-pointer"
                   onChange={(e) => setFile(e.target.files[0])}
                 />
-                <button
-                  type="submit"
-                  className="border p-2 w-[5rem] bg-[#0facce] disabled:bg-[#acd9e0] rounded-lg text-white"
-                  disabled={progress !== null && progress < 100}
-                >
-                  {id ? "Update" : "Publish"}
-                </button>
+
+                {progress !== null && progress < 100 ? (
+                  <>
+                    <button
+                      type="button"
+                      className="bg-[#0facce] text-white flex items-center gap-2 p-2 w-[8rem] rounded-lg"
+                      disabled
+                    >
+                      <FaCircleNotch className="animate-spin" />
+                      Uploading...
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="submit"
+                      className="p-2 w-[8rem] bg-[#0facce] rounded-lg text-white"
+                    >
+                      {id ? "Update" : "Publish"}
+                    </button>
+                  </>
+                )}
               </div>
             </div>
-            <div className=" h-full border p-3">
+            <div className=" h-full border p-3 drop-shadow-sm border-b-2 border-r-2">
               <h1 className="font-bold">Category</h1>
               <div className="flex flex-col">
                 <div className="flex gap-3">
@@ -234,7 +256,9 @@ const CreateBlog = ({ user }) => {
                     onChange={handleCategory}
                     checked={category === "Art"}
                   />
-                  <label htmlFor="categoryOption">Art</label>
+                  <label htmlFor="categoryOption" className="cursor-pointer">
+                    Art
+                  </label>
                 </div>
                 <div className="flex gap-3">
                   <input
@@ -245,7 +269,9 @@ const CreateBlog = ({ user }) => {
                     onChange={handleCategory}
                     checked={category === "Science"}
                   />
-                  <label htmlFor="categoryOption1">Science</label>
+                  <label htmlFor="categoryOption1" className="cursor-pointer">
+                    Science
+                  </label>
                 </div>
                 <div className="flex gap-3">
                   <input
@@ -256,7 +282,9 @@ const CreateBlog = ({ user }) => {
                     onChange={handleCategory}
                     checked={category === "Technology"}
                   />
-                  <label htmlFor="categoryOption2">Technology</label>
+                  <label htmlFor="categoryOption2" className="cursor-pointer">
+                    Technology
+                  </label>
                 </div>
                 <div className="flex gap-3">
                   <input
@@ -267,7 +295,9 @@ const CreateBlog = ({ user }) => {
                     onChange={handleCategory}
                     checked={category === "Cinema"}
                   />
-                  <label htmlFor="categoryOption3">Cinema</label>
+                  <label htmlFor="categoryOption3" className="cursor-pointer">
+                    Cinema
+                  </label>
                 </div>
                 <div className="flex gap-3">
                   <input
@@ -278,7 +308,9 @@ const CreateBlog = ({ user }) => {
                     onChange={handleCategory}
                     checked={category === "Travel"}
                   />
-                  <label htmlFor="categoryOption4">Travel</label>
+                  <label htmlFor="categoryOption4" className="cursor-pointer">
+                    Travel
+                  </label>
                 </div>
                 <div className="flex gap-3">
                   <input
@@ -289,7 +321,9 @@ const CreateBlog = ({ user }) => {
                     onChange={handleCategory}
                     checked={category === "Design"}
                   />
-                  <label htmlFor="categoryOption5">Deisgn</label>
+                  <label htmlFor="categoryOption5" className="cursor-pointer">
+                    Deisgn
+                  </label>
                 </div>
               </div>
             </div>
