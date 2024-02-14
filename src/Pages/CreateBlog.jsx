@@ -137,13 +137,13 @@ const CreateBlog = ({ user }) => {
   };
 
   return (
-    <div className="flex items-center justify-center gap-4 lg:mt-12 mt-2 drop-shadow-lg">
+    <div className="flex justify-center gap-4 lg:mt-12 mt-1">
       <div className="lg:w-[60rem] p-2">
         <form
           className="lg:flex items-center justify-center gap-2"
           onSubmit={handleSubmit}
         >
-          <div className="w-full space-y-5">
+          <div className="w-full lg:space-y-5 space-y-3">
             <h1 className="font-bold">
               {id ? "Update a Post" : "Create a Post"}
             </h1>
@@ -202,17 +202,17 @@ const CreateBlog = ({ user }) => {
               <textarea
                 name="description"
                 cols="30"
-                rows="5"
+                rows="6"
                 placeholder="Description"
                 value={description}
-                className="w-full border p-2"
+                className="w-full border p-2 "
                 onChange={handleChange}
               ></textarea>
             </div>
           </div>
 
           <div className="flex lg:flex-col gap-2">
-            <div className=" border  p-3 space-y-3 drop-shadow-sm border-b-2 border-r-2">
+            <div className=" border p-3 space-y-3 drop-shadow-sm border-b-2 border-r-2">
               <h1 className="font-bold">{id ? "Update" : "Publish"}</h1>
               <div className="flex flex-col gap-3">
                 <input
@@ -302,6 +302,19 @@ const CreateBlog = ({ user }) => {
                 <div className="flex gap-3">
                   <input
                     type="radio"
+                    value="Sports"
+                    id="categoryOption6"
+                    className="cursor-pointer"
+                    onChange={handleCategory}
+                    checked={category === "Sports"}
+                  />
+                  <label htmlFor="categoryOption6" className="cursor-pointer">
+                    Sports
+                  </label>
+                </div>
+                <div className="flex gap-3">
+                  <input
+                    type="radio"
                     value="Travel"
                     id="categoryOption4"
                     className="cursor-pointer"
@@ -322,7 +335,7 @@ const CreateBlog = ({ user }) => {
                     checked={category === "Design"}
                   />
                   <label htmlFor="categoryOption5" className="cursor-pointer">
-                    Deisgn
+                    Design
                   </label>
                 </div>
               </div>

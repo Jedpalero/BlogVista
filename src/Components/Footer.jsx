@@ -15,7 +15,7 @@ const Footer = () => {
         <p className="font-semibold lg:text-lg italic">
           Connect and build relationships with your peers.
         </p>
-        <div className="uppercase">
+        <div className="uppercase flex flex-col lg:block">
           <p className="font-semibold lg:text-lg text-xs">
             Updated consistently with new posts which direct to your inbox
           </p>
@@ -23,9 +23,9 @@ const Footer = () => {
             type="text"
             name="subscribe"
             placeholder="YOUR E-MAIL ..."
-            className="border lg:p-2 p-1 mr-3 lg:w-[26rem] sm:w-[10rem] w-[8rem] mt-3"
+            className="border lg:p-2 p-1 mr-3 lg:w-[26rem] w-full mt-3"
           />
-          <button className="border uppercase pr-6 pl-6 lg:p-2 p-1">
+          <button className="border uppercase pr-6 pl-6 lg:p-2 p-1 mt-2 lg:mt-0">
             Subscribe
           </button>
         </div>
