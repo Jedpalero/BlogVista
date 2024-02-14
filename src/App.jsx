@@ -11,6 +11,8 @@ import { auth } from "./firebase-config";
 import Details from "./Pages/Details";
 import TagSection from "./Pages/TagSection";
 import ErrorNotFound from "./Components/ErrorNotFound";
+import Blogs from "./Pages/Blogs";
+import CategorySection from "./Pages/CategorySection";
 
 function App() {
   const [sidebar, setSidebar] = useState(false);
@@ -56,6 +58,8 @@ function App() {
             />
             <Route path="/detail/:id" element={<Details user={user} />} />
             <Route path="/tag/:tag" element={<TagSection />} />
+            <Route path="/category/:category" element={<CategorySection />} />
+            <Route path="/blogs" element={<Blogs />} />
 
             <Route path="*" element={<ErrorNotFound />} />
           </Routes>

@@ -43,9 +43,12 @@ const Navigation = ({ sidebar, setSidebar, user }) => {
           >
             <button className="">Home</button>
           </NavLink>
-          <div className="hover:bg-[#0facce] hover:text-white p-2.5 rounded-sm transition ease-in-out duration-150 text-center w-full">
+          <NavLink
+            to="/blogs"
+            className="hover:bg-[#0facce] hover:text-white p-2.5 rounded-sm transition ease-in-out duration-150 text-center w-full"
+          >
             <button className="">Blogs</button>
-          </div>
+          </NavLink>
           <NavLink
             to="/create"
             className="hover:bg-[#0facce] hover:text-white p-2.5 rounded-sm transition ease-in-out duration-150 text-center w-full"
