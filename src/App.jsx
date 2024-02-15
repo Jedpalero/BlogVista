@@ -13,6 +13,7 @@ import TagSection from "./Pages/TagSection";
 import ErrorNotFound from "./Components/ErrorNotFound";
 import Blogs from "./Pages/Blogs";
 import CategorySection from "./Pages/CategorySection";
+import About from "./Pages/About";
 
 function App() {
   const [sidebar, setSidebar] = useState(false);
@@ -60,6 +61,7 @@ function App() {
             <Route path="/tag/:tag" element={<TagSection />} />
             <Route path="/category/:category" element={<CategorySection />} />
             <Route path="/blogs" element={<Blogs />} />
+            <Route path="/about" element={<About />} />
 
             <Route path="*" element={<ErrorNotFound />} />
           </Routes>

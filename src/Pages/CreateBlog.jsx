@@ -137,8 +137,8 @@ const CreateBlog = ({ user }) => {
   };
 
   return (
-    <div className="flex justify-center gap-4 lg:mt-12 mt-1">
-      <div className="lg:w-[60rem] p-2">
+    <div className="flex justify-center gap-4 lg:mt-12 mt-1 wide:landscape:overflow-y-scroll wide:landscape:h-screen">
+      <div className="lg:w-[60rem] p-2 wide:landscape:h-[43rem]">
         <form
           className="lg:flex items-center justify-center gap-2"
           onSubmit={handleSubmit}
