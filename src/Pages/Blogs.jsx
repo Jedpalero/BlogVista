@@ -14,8 +14,6 @@ import { db } from "../firebase-config";
 import Spinner from "../Components/Spinner";
 import BlogSection from "../Components/BlogSection";
 import Pagination from "../Components/Pagination";
-import Tags from "../Components/Tags";
-import Category from "../Components/Category";
 
 const Blogs = () => {
   const [loading, setLoading] = useState(false);
@@ -79,11 +77,11 @@ const Blogs = () => {
     const limitData =
       noOfPages !== currentPage
         ? limit(2)
-        : count <= 4 && noOfPages % 2 === 0
+        : count <= 2 && noOfPages % 2 === 0
         ? limit(2)
         : limitToLast(2);
-    const prevBlogQuery = query(blogRef, orderBy("title"), end, limitData);
-    const prevBlogsSnapshot = await getDocs(prevBlogQuery);
+    const prevBlogsQuery = query(blogRef, orderBy("title"), end, limitData);
+    const prevBlogsSnapshot = await getDocs(prevBlogsQuery);
     setBlogs(
       prevBlogsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
     );
@@ -104,7 +102,9 @@ const Blogs = () => {
 
   return (
     <div className="overflow-y-scroll h-screen pb-12">
-      <h1 className="text-center py-5 text-4xl font-bold">Daily Blogs</h1>
+      <h1 className="text-center py-5 lg:text-3xl text-xl font-bold">
+        Daily Blogs
+      </h1>
       <hr className="border flex justify-center m-auto lg:w-[70rem]" />
       <div className="flex flex-wrap justify-center pt-5 gap-3">
         {blogs?.map((blog) => (

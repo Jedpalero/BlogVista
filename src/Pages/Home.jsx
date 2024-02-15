@@ -119,7 +119,7 @@ const Home = ({ user }) => {
         setLoading(true);
         await deleteDoc(doc(db, "blogs", id));
         toast.success("Blog deleted successfully");
-        // getBlogs();
+        getBlogs();
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -157,13 +157,15 @@ const Home = ({ user }) => {
             <Trending blogs={blogs} />
           </div>
           <div className="border p-2 rounded-xl lg:mt-0 mt-5 border-b-4 border-r-4 border-shadow-lg">
-            <p className="text-2xl font-bold mb-2">Most Popular</p>
+            <p className="lg:text-2xl text-xl font-bold mb-2">Most Popular</p>
             <Popular blogs={trendBlogs} />
           </div>
         </div>
-        <div className="lg:flex gap-12 mt-10 pb-10">
+        <div className="lg:flex gap-12 mt-10 pb-10 lg:pl-[17rem] lg:pr-[17rem]">
           <div className="space-y-5">
-            <p className="text-2xl font-bold mb-2">Latest From Our Blog</p>
+            <p className="lg:text-2xl text-xl font-bold mb-2">
+              Latest From Our Blog
+            </p>
             <hr className="border" />
             {blogs?.map((blog) => (
               <BlogSection
@@ -183,10 +185,10 @@ const Home = ({ user }) => {
             )}
           </div>
           <div className="lg:w-[20rem] space-y-5 lg:py-0 py-4">
-            <p className="text-2xl font-bold mb-2">Tags</p>
+            <p className="lg:text-2xl text-xl font-bold mb-2">Tags</p>
             <hr className="border" />
             <Tags tags={tags} />
-            <p className="text-2xl font-bold mb-2">Category</p>
+            <p className="lg:text-2xl text-xl font-bold mb-2">Category</p>
             <hr className="border" />
             <Category categoryCount={categoryCount} />
           </div>
