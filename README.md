@@ -12,6 +12,10 @@
 
 ![Detail Page](https://github.com/Jedpalero/BlogVista/assets/140801154/801945c8-82db-476e-b8b3-4d4be703c0f4)
 
+## It is also Mobile Responsive
+
+![mobile gif](https://github.com/Jedpalero/BlogVista/assets/140801154/e57fee4b-c8be-4515-a387-55753e77c7d5)
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
