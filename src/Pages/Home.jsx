@@ -10,7 +10,7 @@ import {
   orderBy,
   startAfter,
 } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../firebase-config";
 import BlogSection from "../Components/BlogSection";
 import Trending from "../Components/Trending";
@@ -161,7 +161,7 @@ const Home = ({ user }) => {
             <Popular blogs={trendBlogs} />
           </div>
         </div>
-        <div className="lg:flex gap-12 mt-10 pb-10 lg:pl-[17rem] lg:pr-[17rem]">
+        <div className="lg:flex gap-12 mt-10 pb-10">
           <div className="space-y-5">
             <p className="lg:text-2xl text-xl font-bold mb-2">
               Latest From Our Blog
