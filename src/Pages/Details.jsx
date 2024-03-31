@@ -5,7 +5,7 @@ import {
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { db } from "../firebase-config";
 import Tags from "../Components/Tags";
@@ -97,7 +97,7 @@ const Details = ({ user }) => {
           </h2>
         </div>
       </div>
-      <div className="text-lg lg:w-[100rem] m-auto">
+      <div className="text-lg lg:w-[90rem] m-auto">
         <div className="p-10 space-y-1">
           <span className="flex items-center">
             By &nbsp; <h1 className="font-semibold">{blog?.author}</h1> &nbsp;
